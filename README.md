@@ -1,7 +1,7 @@
 Diskord
 =======
 
-My dumb attempt at making a Kotlin API wrapper for Discord.
+My dumb attempt at making a Kotlin wrapper for the [Discord API](https://discordapp.com/developers/docs/intro)
 
 #### Why...? 
 
