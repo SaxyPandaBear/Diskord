@@ -41,5 +41,6 @@
 
 # IntelliJ
 out/
+build/
 
 .gradle

@@ -1,6 +1,5 @@
 package com.github.saxypandabear.diskord.client
 
-import com.github.saxypandabear.diskord.auth.AuthManager
+import com.github.saxypandabear.diskord.auth.BotAuthManager
 
-class DiscordBotClient(authMethod: AuthManager) : IDiscordBotClient {
-}
+class DiscordBotClient(authManager: BotAuthManager) : Client(authManager)
