@@ -11,8 +11,13 @@ interface AuthManager {
     fun createAuthorizationHeader(): String
 }
 
-class BasicAuthManager(properties: Properties) : AuthManager {
+/**
+ * Takes in a list of strings for the defined scopes that this authentication manager will request for.
+ * Defaults to "bot" if given an empty list
+ */
+class BasicAuthManager(properties: Properties, scopes: List<String>) : AuthManager {
 
+    private val scope = if (scopes.isEmpty()) "bot" else scopes.joinToString(" ")
     private val clientId: String = properties.getProperty(CLIENT_ID_PROPERTY_KEY) ?: throw MissingPropertyException(CLIENT_ID_PROPERTY_KEY)
     private val clientSecret: String = properties.getProperty(CLIENT_SECRET_PROPERTY_KEY) ?: throw MissingPropertyException(
         CLIENT_SECRET_PROPERTY_KEY
