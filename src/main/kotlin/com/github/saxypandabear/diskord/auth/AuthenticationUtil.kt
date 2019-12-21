@@ -1,11 +1,11 @@
 package com.github.saxypandabear.diskord.auth
 
+import com.github.saxypandabear.diskord.auth.model.AuthenticationType
 import java.lang.Exception
-import java.lang.NullPointerException
 import java.lang.RuntimeException
 import java.nio.file.Paths
 import java.util.*
-import com.github.saxypandabear.diskord.auth.AuthenticationType.*
+import com.github.saxypandabear.diskord.auth.model.AuthenticationType.*
 
 /**
  * Manage client credential patterns for a Discord client.

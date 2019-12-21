@@ -1,4 +1,4 @@
-package com.github.saxypandabear.diskord.auth
+package com.github.saxypandabear.diskord.auth.model
 
 /**
  * TODO: As more functionality gets added,

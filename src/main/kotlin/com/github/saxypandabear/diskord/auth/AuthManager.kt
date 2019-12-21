@@ -18,6 +18,8 @@ interface AuthManager {
  */
 class BasicAuthManager(val httpClient: Http, properties: Properties, scopes: List<String>) : AuthManager {
 
+    private val tokenEndpoint = "/oauth2/token"
+
     // the scope is the space delimited list of values that define the accesses that this authentication is asking for
     private val scope = if (scopes.isEmpty()) "bot" else scopes.joinToString(" ")
 
@@ -32,7 +34,7 @@ class BasicAuthManager(val httpClient: Http, properties: Properties, scopes: Lis
 
     override fun getAuthToken(clientId: String, clientSecret: String): String {
         // Use client credentials to make a POST request against the Discord API
-        val response = httpClient.post()
+        val response = httpClient.post(tokenEndpoint)
         return "" // TODO: finish this
     }
 

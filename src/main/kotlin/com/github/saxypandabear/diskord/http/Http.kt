@@ -13,7 +13,13 @@ enum class RequestMethod {
 
 abstract class Http(protected val baseUrl: String) {
     abstract fun get(endpoint: String, headers: Map<String, String>? = null): HttpResponse
-    abstract fun post(endpoint: String, payload: Any, headers: Map<String, String>? = null): HttpResponse
+    abstract fun post(
+        endpoint: String,
+        payload: Any,
+        headers: Map<String, String>? = null,
+        payloadToByteArrayFunction: ((payload: Any) -> ByteArray)? = null
+    ): HttpResponse
+
     abstract fun post(endpoint: String, payload: String, headers: Map<String, String>? = null): HttpResponse
     abstract fun post(endpoint: String, payload: ByteArray, headers: Map<String, String>? = null): HttpResponse
 }
@@ -38,8 +44,17 @@ class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/
         }
     }
 
-    override fun post(endpoint: String, payload: Any, headers: Map<String, String>?): HttpResponse {
-        return post(endpoint, objectMapper.writeValueAsBytes(payload), headers)
+    override fun post(
+        endpoint: String,
+        payload: Any,
+        headers: Map<String, String>?,
+        payloadToByteArrayFunction: ((payload: Any) -> ByteArray)?
+    ): HttpResponse {
+        if (payloadToByteArrayFunction != null) {
+            return post(endpoint, payloadToByteArrayFunction(payload), headers)
+        } else {
+            return post(endpoint, objectMapper.writeValueAsBytes(payload), headers)
+        }
     }
 
     override fun post(endpoint: String, payload: String, headers: Map<String, String>?): HttpResponse {
