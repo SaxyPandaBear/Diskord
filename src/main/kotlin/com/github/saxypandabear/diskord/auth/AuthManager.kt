@@ -1,5 +1,6 @@
 package com.github.saxypandabear.diskord.auth
 
+import com.github.saxypandabear.diskord.http.Http
 import com.github.saxypandabear.diskord.util.PropertiesUtil
 import com.github.saxypandabear.diskord.util.PropertiesUtil.BOT_TOKEN_PROPERTY_KEY
 import com.github.saxypandabear.diskord.util.PropertiesUtil.CLIENT_ID_PROPERTY_KEY
@@ -15,7 +16,7 @@ interface AuthManager {
  * Takes in a list of strings for the defined scopes that this authentication manager will request for.
  * Defaults to "bot" if given an empty list
  */
-class BasicAuthManager(properties: Properties, scopes: List<String>) : AuthManager {
+class BasicAuthManager(val httpClient: Http, properties: Properties, scopes: List<String>) : AuthManager {
 
     // the scope is the space delimited list of values that define the accesses that this authentication is asking for
     private val scope = if (scopes.isEmpty()) "bot" else scopes.joinToString(" ")
@@ -30,6 +31,8 @@ class BasicAuthManager(properties: Properties, scopes: List<String>) : AuthManag
     private var authToken: String = ""
 
     override fun getAuthToken(clientId: String, clientSecret: String): String {
+        // Use client credentials to make a POST request against the Discord API
+        val response = httpClient.post()
         return "" // TODO: finish this
     }
 
@@ -41,7 +44,7 @@ class BasicAuthManager(properties: Properties, scopes: List<String>) : AuthManag
     }
 }
 
-class BotAuthManager(properties: Properties) : AuthManager {
+open class BotAuthManager(properties: Properties) : AuthManager {
     private var botAuthToken: String = PropertiesUtil.getValue(BOT_TOKEN_PROPERTY_KEY, properties)
 
     override fun getAuthToken(clientId: String, clientSecret: String): String {

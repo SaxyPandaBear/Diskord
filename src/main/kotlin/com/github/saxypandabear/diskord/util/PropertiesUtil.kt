@@ -1,6 +1,7 @@
 package com.github.saxypandabear.diskord.util
 
 import com.github.saxypandabear.diskord.exception.MissingPropertyException
+import java.io.FileInputStream
 import java.util.*
 
 object PropertiesUtil {
@@ -11,5 +12,12 @@ object PropertiesUtil {
 
     fun getValue(key: String, properties: Properties): String {
         return properties.getProperty(key) ?: throw MissingPropertyException(key)
+    }
+
+    fun readProperties(filepath: String): Properties {
+        val properties = Properties()
+        properties.load(FileInputStream(filepath))
+
+        return properties
     }
 }

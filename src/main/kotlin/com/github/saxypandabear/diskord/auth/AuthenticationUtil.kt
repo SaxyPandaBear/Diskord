@@ -36,7 +36,6 @@ object AuthenticationUtil {
     fun createAuthManager(properties: Properties): AuthManager {
         return when (deriveAuthenticationType(properties)) {
             BOT -> BotAuthManager(properties)
-            else -> throw Exception()
         }
     }
 
