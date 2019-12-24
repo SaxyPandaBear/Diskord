@@ -1,11 +1,9 @@
 package com.github.saxypandabear.diskord.auth
 
 import com.github.saxypandabear.diskord.auth.model.AuthenticationType
-import java.lang.Exception
-import java.lang.RuntimeException
+import com.github.saxypandabear.diskord.auth.model.AuthenticationType.BOT
 import java.nio.file.Paths
 import java.util.*
-import com.github.saxypandabear.diskord.auth.model.AuthenticationType.*
 
 /**
  * Manage client credential patterns for a Discord client.
@@ -38,7 +36,6 @@ object AuthenticationUtil {
             BOT -> BotAuthManager(properties)
         }
     }
-
 
 
     private fun deriveAuthenticationType(properties: Properties): AuthenticationType {

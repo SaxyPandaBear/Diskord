@@ -1,5 +1,6 @@
 package com.github.saxypandabear.diskord.auth
 
+import com.github.saxypandabear.diskord.auth.model.AuthRequest
 import com.github.saxypandabear.diskord.http.Http
 import com.github.saxypandabear.diskord.util.PropertiesUtil
 import com.github.saxypandabear.diskord.util.PropertiesUtil.BOT_TOKEN_PROPERTY_KEY
@@ -34,7 +35,8 @@ class BasicAuthManager(val httpClient: Http, properties: Properties, scopes: Lis
 
     override fun getAuthToken(clientId: String, clientSecret: String): String {
         // Use client credentials to make a POST request against the Discord API
-        val response = httpClient.post(tokenEndpoint)
+        val authRequest = AuthRequest(clientId, clientSecret, "client_credentials", null, null, scope)
+        val response = httpClient.post(tokenEndpoint, authRequest)
         return "" // TODO: finish this
     }
 

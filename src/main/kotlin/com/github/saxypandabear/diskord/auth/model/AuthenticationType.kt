@@ -6,5 +6,6 @@ package com.github.saxypandabear.diskord.auth.model
  *       Currently only targeting BOT scope
  */
 enum class AuthenticationType {
+
     BOT;
 }

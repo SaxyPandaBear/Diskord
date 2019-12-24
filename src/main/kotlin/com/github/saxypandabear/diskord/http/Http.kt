@@ -1,7 +1,6 @@
 package com.github.saxypandabear.diskord.http
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.github.saxypandabear.diskord.util.JacksonUtil
 import com.github.saxypandabear.diskord.util.PropertiesUtil
 import java.net.HttpURLConnection
 import java.net.URL
@@ -29,8 +28,6 @@ class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/
 
     constructor(properties: Properties) : this(PropertiesUtil.getValue(PropertiesUtil.API_VERSION, properties))
 
-    private val objectMapper: ObjectMapper = jacksonObjectMapper()
-
     override fun get(endpoint: String, headers: Map<String, String>?): HttpResponse {
         val url = URL("$baseUrl/$apiVersion/${stripSlashes(endpoint)}")
         with(url.openConnection() as HttpURLConnection) {
@@ -54,7 +51,7 @@ class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/
         if (payloadToByteArrayFunction != null) {
             return post(endpoint, payloadToByteArrayFunction(payload), headers)
         } else {
-            return post(endpoint, objectMapper.writeValueAsBytes(payload), headers)
+            return post(endpoint, JacksonUtil.objectMapper.writeValueAsBytes(payload), headers)
         }
     }
 

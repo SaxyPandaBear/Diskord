@@ -8,6 +8,7 @@ import java.net.HttpURLConnection
  * maintaining the data
  */
 data class HttpResponse(val inputStream: InputStream, val responseCode: Int, val headers: Map<String, List<String>>) {
+
     constructor(httpURLConnection: HttpURLConnection) : this(
         httpURLConnection.inputStream,
         httpURLConnection.responseCode,
