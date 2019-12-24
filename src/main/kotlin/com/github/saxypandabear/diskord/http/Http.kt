@@ -22,6 +22,7 @@ abstract class Http(protected val baseUrl: String) {
 
     abstract fun post(endpoint: String, payload: String, headers: Map<String, String>? = null): HttpResponse
     abstract fun post(endpoint: String, payload: ByteArray, headers: Map<String, String>? = null): HttpResponse
+    abstract fun delete(endpoint: String, headers: Map<String, String>? = null): HttpResponse
 }
 
 class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/api") {
@@ -31,7 +32,7 @@ class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/
     private val objectMapper: ObjectMapper = jacksonObjectMapper()
 
     override fun get(endpoint: String, headers: Map<String, String>?): HttpResponse {
-        val url = URL("$baseUrl/$apiVersion/$endpoint")
+        val url = URL("$baseUrl/$apiVersion/${stripSlashes(endpoint)}")
         with(url.openConnection() as HttpURLConnection) {
             headers?.let {
                 for ((k, v) in it) {
@@ -62,7 +63,7 @@ class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/
     }
 
     override fun post(endpoint: String, payload: ByteArray, headers: Map<String, String>?): HttpResponse {
-        val url = URL("$baseUrl/$apiVersion/$endpoint")
+        val url = URL("$baseUrl/$apiVersion/${stripSlashes(endpoint)}")
         with(url.openConnection() as HttpURLConnection) {
             headers?.let {
                 for ((k, v) in it) {
@@ -75,5 +76,26 @@ class HttpClient(private val apiVersion: String) : Http("https://discordapp.com/
 
             return HttpResponse(this)
         }
+    }
+
+    override fun delete(endpoint: String, headers: Map<String, String>?): HttpResponse {
+        val url = URL("$baseUrl/$apiVersion/${stripSlashes(endpoint)}")
+        with(url.openConnection() as HttpURLConnection) {
+            headers?.let {
+                for ((k, v) in it) {
+                    addRequestProperty(k, v)
+                }
+            }
+            requestMethod = RequestMethod.DELETE.name
+
+            return HttpResponse(this)
+        }
+    }
+
+    /**
+     * convenience method for dealing with input that has leading or trailing forward slashes
+     */
+    private fun stripSlashes(endpoint: String): String {
+        return endpoint.trim { c -> c == '/' }
     }
 }
