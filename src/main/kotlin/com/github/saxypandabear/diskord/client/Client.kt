@@ -1,7 +1,11 @@
 package com.github.saxypandabear.diskord.client
 
-import java.util.*
-
-// TODO: figure out what methods should be defined in this abstract
-//       class
-abstract class Client(protected val properties: Properties)
+/**
+ * Aim low for now.
+ *
+ * A client should be able to read messages and send messages
+ */
+abstract class Client {
+    abstract fun readMessage()
+    abstract fun sendMessage()
+}
