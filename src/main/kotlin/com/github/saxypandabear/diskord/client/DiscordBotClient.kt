@@ -1,8 +1,8 @@
 package com.github.saxypandabear.diskord.client
 
 import com.github.saxypandabear.diskord.auth.AuthManager
-import com.github.saxypandabear.diskord.http.Gateway
-import com.github.saxypandabear.diskord.http.Http
+import com.github.saxypandabear.diskord.api.Gateway
+import com.github.saxypandabear.diskord.api.Http
 
 /**
  * A bot client needs a way to authenticate against Discord,

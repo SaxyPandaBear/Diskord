@@ -1,7 +1,7 @@
 package com.github.saxypandabear.diskord.auth
 
 import com.github.saxypandabear.diskord.auth.model.AuthRequest
-import com.github.saxypandabear.diskord.http.Http
+import com.github.saxypandabear.diskord.api.Http
 import com.github.saxypandabear.diskord.util.PropertiesUtil
 import com.github.saxypandabear.diskord.util.PropertiesUtil.BOT_TOKEN_PROPERTY_KEY
 import com.github.saxypandabear.diskord.util.PropertiesUtil.CLIENT_ID_PROPERTY_KEY

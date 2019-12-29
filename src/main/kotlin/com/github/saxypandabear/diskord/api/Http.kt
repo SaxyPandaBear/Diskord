@@ -1,4 +1,4 @@
-package com.github.saxypandabear.diskord.http
+package com.github.saxypandabear.diskord.api
 
 import com.github.saxypandabear.diskord.util.JacksonUtil
 import java.net.HttpURLConnection
